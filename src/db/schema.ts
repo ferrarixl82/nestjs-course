@@ -1,4 +1,4 @@
-import {boolean, integer, pgTable, text, uuid} from 'drizzle-orm/pg-core'
+import {boolean, integer, pgTable, text, uuid, varchar} from 'drizzle-orm/pg-core'
 
 export const products = pgTable('products',
     {
@@ -6,7 +6,20 @@ export const products = pgTable('products',
         title: text().notNull(),
         quantity:integer().notNull(),
         inStock:boolean().default(true).notNull(),
+        categoryName: text().references(()=>categories.slug)
     })
 
+export const categories = pgTable('categories', {
+
+    name: text()
+        .notNull()
+        .unique(),
+
+    slug: text()
+        .notNull()
+        .unique().primaryKey(),
+});
+
+
 export type Product = typeof products.$inferSelect;
-export type NewProduct = typeof products.$inferInsert;
+export type Category = typeof categories.$inferSelect;

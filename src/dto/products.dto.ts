@@ -1,4 +1,4 @@
-import {IsBoolean, IsInt, IsNotEmpty, IsString, Min} from 'class-validator';
+import {IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString, Min} from 'class-validator';
 
 export class CreateProductDto {
 
@@ -11,7 +11,32 @@ export class CreateProductDto {
     @Min(0)
     quantity: number;
 
-
     @IsBoolean()
     inStock: boolean;
+
+    @IsString()
+    categorie:string;
+}
+
+export class UpdateProductDto {
+
+    @IsOptional()
+    @IsNotEmpty()
+    @IsString()
+    title: string;
+
+    @IsOptional()
+    @IsNotEmpty()
+    @IsInt()
+    @Min(0)
+    quantity: number;
+
+    @IsOptional()
+    @IsBoolean()
+    inStock: boolean;
+
+    @IsOptional()
+    @IsString()
+    categorie:string;
+
 }
